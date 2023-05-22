@@ -16,6 +16,11 @@ jobs:
               -t "${DOCKER_REGISTRY}/${DOCKER_REPO}:${CIRCLE_SHA1}" \
                 .
           docker push "${DOCKER_REGISTRY}/${DOCKER_REPO}:${CIRCLE_SHA1}"
+          if [ "${CIRCLE_BRANCH}" = "main" ]; then
+              docker tag "${DOCKER_REGISTRY}/${DOCKER_REPO}:${CIRCLE_SHA1}" "${DOCKER_REGISTRY}/${DOCKER_REPO}:latest"
+              docker push "${DOCKER_REGISTRY}/${DOCKER_REPO}:latest"
+          fi
+
 workflows:
   version: 2
   lint-test-build:
