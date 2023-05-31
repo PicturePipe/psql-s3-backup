@@ -9,3 +9,11 @@ This containers expects the following environment variables:
 - `BACKUP_BUCKET` name of the S3 bucket were the database backup should be sent to
 - `AWS_ACCESS_KEY_ID`
 - `AWS_SECRET_ACCESS_KEY`
+
+## Restore
+
+To restore the backup completely overwriting the current database use:
+
+```console
+pg_restore -O -c --if-exists -x -d "${DATABASE_URL}" < backup-file.dump
+```
